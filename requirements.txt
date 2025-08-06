@@ -1,6 +1,7 @@
 flask
-torch==1.13.1
-torchvision==0.14.1
+torch==2.5.1
+torchvision==0.18.1
 Pillow
 numpy
 gdown
+basnet-remover
