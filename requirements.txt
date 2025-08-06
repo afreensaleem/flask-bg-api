@@ -4,4 +4,3 @@ torchvision==0.22.1
 Pillow
 numpy
 gdown
-basnet-remover
