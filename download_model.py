@@ -20,7 +20,7 @@ def load_model():
     if not os.path.exists(model_path):
         print("Downloading BASNet model...")
         gdown.download(
-            "https://drive.google.com/uc?id=1rbSTGKAE-MTxBYHd-51l2hMOQPT_7EPy",
+            "https://drive.google.com/uc?id=1s52ek_4YTDRt_EOkx1FS53u-vJa0c4nu",
             model_path,
             quiet=False
         )
