@@ -1,3 +1,5 @@
+import download_model
+
 from flask import Flask, request, send_file
 from basnet_remover import remove
 import os
