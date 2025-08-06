@@ -1,9 +1,8 @@
 import os
 import gdown
 import torch
-from torchvision import transforms
-from torch.autograd import Variable
-from torch import nn
+from basnet_model import BASNet  # ✅ USE REAL MODEL
+
 
 class BASNet(nn.Module):
     # This should match your BASNet architecture. You may already have this implemented.
