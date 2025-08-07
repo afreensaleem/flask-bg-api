@@ -1,18 +1,7 @@
 import os
 import gdown
 import torch
-from basnet_model import BASNet  # ✅ USE REAL MODEL
-
-
-class BASNet(nn.Module):
-    # This should match your BASNet architecture. You may already have this implemented.
-    def __init__(self, n_channels, n_classes):
-        super(BASNet, self).__init__()
-        # Define your network here or import it if you have a full model file.
-
-    def forward(self, x):
-        # Implement forward pass
-        return x, x, x, x, x, x, x  # Dummy return to match `[0]` indexing
+from basnet_model import BASNet  # ✅ Correct import only
 
 def load_model():
     model_path = "basnet.pth"
@@ -25,5 +14,6 @@ def load_model():
         )
     model = BASNet(n_channels=3, n_classes=1)
     model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+    model.eval()
     return model
 
