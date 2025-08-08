@@ -5,17 +5,25 @@ from PIL import Image
 
 app = Flask(__name__)
 
-@app.route('/remove-bg', methods=['POST'])
+@app.route("/")
+def home():
+    return "Background Remover API is running!"
+
+@app.route("/remove-bg", methods=["POST"])
 def remove_bg():
     if 'image' not in request.files:
-        return {"error": "No image uploaded"}, 400
+        return {"error": "No image file provided"}, 400
 
-    input_image = request.files['image'].read()
+    image_file = request.files['image']
+    input_image = Image.open(image_file.stream).convert("RGBA")
+    
+    output_image = remove(input_image)
 
-    # Remove background using the u2netp model
-    output_image = remove(input_image, model_name="u2netp")
+    img_io = BytesIO()
+    output_image.save(img_io, 'PNG')
+    img_io.seek(0)
 
-    return send_file(BytesIO(output_image), mimetype='image/png')
+    return send_file(img_io, mimetype='image/png')
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=5000)
