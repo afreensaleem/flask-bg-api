@@ -1,28 +1,21 @@
-import download_model
-
 from flask import Flask, request, send_file
-from basnet_remover import remove
-import os
+from rembg import remove
+from io import BytesIO
+from PIL import Image
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return "Background Remover API using BASNet is running!"
-
-@app.route("/remove-bg", methods=["POST"])
+@app.route('/remove-bg', methods=['POST'])
 def remove_bg():
     if 'image' not in request.files:
-        return {"error": "No image file provided"}, 400
+        return {"error": "No image uploaded"}, 400
 
-    image = request.files['image']
-    input_path = "input.jpg"
-    output_path = "static/output.png"
+    input_image = request.files['image'].read()
 
-    image.save(input_path)
-    remove(input_path, output_path)
+    # Remove background using the u2netp model
+    output_image = remove(input_image, model_name="u2netp")
 
-    return send_file(output_path, mimetype="image/png")
+    return send_file(BytesIO(output_image), mimetype='image/png')
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
