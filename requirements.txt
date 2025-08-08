@@ -1,5 +1,5 @@
 flask==2.3.3
-rembg==2.0.50
+rembg
 torch==2.1.0
 numpy==1.25.2
 Pillow==10.0.1
