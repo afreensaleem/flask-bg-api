@@ -1,9 +1,12 @@
 from flask import Flask, request, send_file
-from rembg import remove
+from rembg import remove, new_session
 from io import BytesIO
 from PIL import Image
 
 app = Flask(__name__)
+
+# Create a session with the lightweight u2netp model
+session = new_session(model_name="u2netp")
 
 @app.route("/")
 def home():
@@ -17,7 +20,7 @@ def remove_bg():
     image_file = request.files['image']
     input_image = Image.open(image_file.stream).convert("RGBA")
     
-    output_image = remove(input_image)
+    output_image = remove(input_image, session=session)
 
     img_io = BytesIO()
     output_image.save(img_io, 'PNG')
